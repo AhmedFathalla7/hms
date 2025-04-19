@@ -1,0 +1,12 @@
+<odoo>
+  <data>
+
+    <record id="patient_user_rule" model="ir.rule">
+      <field name="name">User can see his own patients</field>
+      <field name="model_id" ref="main.model_hms_patient"/>
+      <field name="domain_force">[('create_uid', '=', user.id)]</field>
+      <field name="groups" eval="[(4, ref('main.group_hms_user'))]"/>
+    </record>
+
+  </data>
+</odoo>

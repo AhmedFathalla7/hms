@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+          <template id="patient_report_template">
+            <t t-call="web.html_container">
+              <t t-call="web.external_layout">
+
+                <div class="page">
+                  <h2 style="color: red;">Patient Status Report</h2>
+
+                  <div style="display: flex; justify-content: space-between;">
+                    <div>
+                      <p><strong>Name:</strong> <t t-esc="doc.name"/></p>
+                      <p><strong>Age:</strong> <t t-esc="doc.age"/></p>
+                      <p><strong>Department:</strong> <t t-esc="doc.department_id.name"/></p>
+                      <p>
+                        <strong>Doctors:</strong>
+                        <t t-esc="', '.join([d.name for d in doc.doctor_ids])"/>
+                      </p>
+                    </div>
+
+                    <div>
+                      <img t-if="doc.image" t-att-src="'data:image/png;base64,%s' % doc.image" style="max-height:120px;"/>
+                      <p><strong>Birth date:</strong> <t t-esc="doc.birth_date"/></p>
+                      <p><strong>PCR:</strong> <t t-esc="doc.pcr"/></p>
+                      <p><strong>Blood Type:</strong> <t t-esc="doc.blood_type"/></p>
+                      <p><strong>Email:</strong> <t t-esc="doc.email"/></p>
+                    </div>
+                  </div>
+
+                  <br/>
+                  <h4 style="color:red;">Log History</h4>
+                  <table class="table table-bordered">
+                      <tr style="background-color: #007bff; color: white;">
+                        <th>User</th>
+                        <th>Date</th>
+                        <th>Info</th>
+                      </tr>
+                      <t t-foreach="doc.log_ids" t-as="log">
+                        <tr>
+                          <td><t t-esc="log.created_by.name"/></td>
+                          <td><t t-esc="log.date"/></td>
+                          <td><t t-esc="log.description"/></td>
+                        </tr>
+                      </t>
+                  </table>
+                </div>
+
+              </t>
+            </t>
+          </template>
+    </data>
+</odoo>
